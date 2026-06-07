@@ -18,7 +18,6 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"] // Asegúrate de incluir Authorization
 }));
 
-app.options('*', cors());
 
 app.use("/api/users", userRoutes);
 app.use("/api/completions", completionRoutes);
