@@ -28,8 +28,6 @@ const router = Router();
  *   get:
  *     summary: Get all models with pagination
  *     tags: [Models]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: page

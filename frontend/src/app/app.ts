@@ -5,12 +5,11 @@ import { AuthUserStore } from './core/stores/auth-user-store';
 import { MatDialog } from '@angular/material/dialog';
 import { Verify } from './features/auth/verify/verify';
 import { environment } from '../environments/environment';
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { ModelStore } from './core/stores/model-store';
 
 @Component({
   selector: 'app-root',
-  imports: [ChatComponent, MatProgressSpinner],
+  imports: [ChatComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
