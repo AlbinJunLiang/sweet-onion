@@ -1,0 +1,55 @@
+a {
+  height: 45px !important;
+}
+.conversation-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-item .delete-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Angular Material usa host interno, por eso usamos el a.chat-item */
+.chat-item:hover .delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.delete-btn mat-icon {
+  font-size: 18px; /* o 16px, 20px, etc */
+  width: 18px;
+  height: 18px;
+}
+
+.scroll-sentinel {
+  display: flex; /* Activa Flexbox */
+  justify-content: center; /* Centrado horizontal absoluto */
+  align-items: center; /* Centrado vertical absoluto */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  min-height: 60px; /* Espacio para que el spinner no quede pegado a los chats */
+  padding: 16px 0; /* Colchón de aire arriba y abajo */
+  box-sizing: border-box;
+}
+
+
+.spinner-container {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;     /* Centrado vertical */
+  width: 100%;
+  min-height: 200px;   
+}
+
+/* El color de fondo y texto que se aplicará SOLO al chat que esté abierto */
+.active-chat {
+  background-color: #e0e0e0 !important; /* El color gris de Material o el que prefieras */
+  color: #3f51b5 !important;            /* Cambia el color del texto si quieres */
+  font-weight: bold;
+}
+
+:host ::ng-deep .spinner-indigo circle {
+  stroke: #4f46e5 !important; /* Código HEX para el Indigo 600 */
+}

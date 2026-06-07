@@ -1,0 +1,232 @@
+:root {
+  --primary-color: #4f46e5;
+  --bg-main: #ffffff;
+  --bg-chat: #f9fafb;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --user-bubble-bg: #4f46e5;
+  --border-color: #e5e7eb;
+}
+
+.chat-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white !important;
+  font-family: 'Inter', sans-serif;
+}
+
+/* HEADER */
+.chat-header {
+  padding: 8px 10px 15px 10px;
+  border-bottom: 1px solid var(--border-color);
+  background: white;
+}
+
+.bot-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+}
+
+.chat-messages {
+  flex: 1; /* Esto obliga a los mensajes a tomar solo el espacio disponible */
+  overflow-y: auto; /* El scroll SOLO vive aquí */
+  padding: 24px 10px 120px 10px;
+  padding-left: 0 !important;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.message-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+
+  max-width: min(700px, 85%);
+}
+
+.user-row .message-content {
+  align-items: flex-end; /* Alinea el texto y acciones a la derecha */
+}
+
+/* ESTILO USUARIO */
+.user-row {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  padding-right: 15px;
+}
+
+.bubble {
+  overflow-wrap: break-word;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+.user-row .bubble {
+  background: var(--user-bubble-bg);
+  color: rgb(0, 0, 0);
+  padding: 12px 18px;
+  border-radius: 20px 20px 4px 20px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ESTILO BOT (Sin Burbuja) */
+.bot-row {
+  align-self: flex-start;
+  width: 100%;
+}
+
+.bot-row .avatar {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.bot-row .bubble {
+  background: transparent;
+  color: var(--text-dark);
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.7;
+
+  /* CLAVE: Que el texto use todo el ancho */
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+/* ACCIONES (COPIAR/AUDIO) */
+.message-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  opacity: 0; /* Ocultos por defecto */
+  transition: opacity 0.2s ease;
+}
+
+.message-row:hover .message-actions {
+  opacity: 1; /* Aparecen al pasar el mouse sobre la fila */
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: #f3f4f6;
+  color: var(--primary-color);
+}
+
+.action-btn .material-icons {
+  font-size: 18px;
+}
+
+.chat-footer {
+  /* Se queda siempre abajo porque el contenido de arriba es flexible */
+  flex-shrink: 0;
+  background: white;
+  padding: 16px;
+
+  /* Opcional: Si quieres que el input "flote" ligeramente */
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* El ::vdeep o :host ::ng-deep asegura que el estilo entre al componente de Material */
+:host ::ng-deep .spinner-indigo circle {
+  stroke: #4f46e5 !important; /* Código HEX para el Indigo 600 */
+}
+
+/* ====================================================================
+   RESET DE MÁRGENES PARA EL TEXTO GENERADO POR MARKDOWN INLINE
+   ==================================================================== */
+
+/* Cancela el margen del navegador en los párrafos inyectados dentro de las burbujas */
+.bubble ::ng-deep p {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.5 !important; /* Mantiene la proporción de lectura original */
+  display: inline; /* Fuerza al párrafo a comportarse como texto plano */
+}
+
+/* Si la IA responde con múltiples párrafos separados, controla su distancia de esta forma */
+.bubble ::ng-deep p + p {
+  display: block;
+  margin-top: 8px !important;
+}
+
+/* Evita que los bloques de listas añadan espacio extra arriba o abajo */
+.bubble ::ng-deep ul,
+.bubble ::ng-deep ol {
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  padding-left: 20px !important;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+/* ====================================================================
+   AJUSTES RESPONSIVE PARA DISPOSITIVOS MÓVILES
+   ==================================================================== */
+
+@media (max-width: 640px) {
+  /* 1. Le damos más margen de separación a los lados de todo el chat */
+  .chat-messages {
+    padding: 16px 16px 100px 0px !important; /* Aumentamos de 10px a 16px el espacio lateral */
+  }
+
+  /* 2. Reducimos ligeramente el ancho máximo en móvil para que el texto del bot 
+        nunca se pegue por completo al borde derecho */
+  .message-content {
+    max-width: 80% !important; /* Cambiamos de 85% a 80% para dejar un 20% libre a la derecha */
+  }
+
+  /* 3. Ajustamos también el espaciado de la fila para mantener simetría */
+  .message-row {
+    gap: 8px !important; /* Unir un poco más el avatar y el texto en pantallas pequeñas */
+  }
+
+  /* 4. Opcional: Asegurar que el texto dentro del bot respire bien */
+  .bot-row .bubble {
+    padding: 6px 0 !important;
+    font-size: 14px !important; /* Un toque más pequeño para mejor lectura en móvil */
+  }
+}

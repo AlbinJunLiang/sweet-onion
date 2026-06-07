@@ -1,0 +1,16 @@
+<div class="dialog">
+  <!-- Cabecera -->
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title()}}</h2>
+
+    <button mat-icon-button type="button" aria-label="Cerrar" (click)="dialogRef.close(); authModeService.setAuthMode('LOGIN');">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  @if (authModeService.authMode() === 'LOGIN') {
+    <app-login [dialogRef]="dialogRef"></app-login>
+  } @else {
+    <app-register></app-register>
+  }
+</div>

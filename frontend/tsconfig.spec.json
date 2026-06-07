@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": []
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.ts" // <-- ¡Ojo aquí! Si aquí dice .spec.ts, cámbialo a .ts
+  ]
+}

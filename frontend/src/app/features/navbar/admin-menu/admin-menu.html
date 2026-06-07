@@ -1,0 +1,23 @@
+<a [matMenuTriggerFor]="adminMenu" mat-list-item>
+  <mat-icon matListItemIcon>edit</mat-icon>
+  <span>
+    <span>{{ languageService.translate('ADMIN') }}</span>
+  </span>
+</a>
+
+<mat-menu #adminMenu="matMenu" class="minimal-menu">
+  <div class="menu-title" style="padding: 8px 16px; font-weight: bold">Opciones</div>
+
+  <button (click)="goTo('/admin/users')" mat-menu-item>
+    <mat-icon> person </mat-icon>
+    <span>Usuarios</span>
+  </button>
+
+
+  
+  <button (click)="goTo('/admin/models')" mat-menu-item>
+    <mat-icon> smart_toy </mat-icon>
+    <span>Modelos</span>
+  </button>
+</mat-menu>
+

@@ -1,0 +1,66 @@
+<div class="container-subcat">
+  <h1 class="header-title">Usuarios del sistema</h1>
+
+  @if (!isFormOpen()) {
+    @if (userStore.total() === 0) {
+      @if (userStore.isLoading()) {
+        <div class="loader-overlay">
+          <mat-spinner class="spinner-indigo" diameter="50"></mat-spinner>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span style="font-size: 1.125rem; font-weight: 500">No hay datos registrados</span>
+        </div>
+      }
+    } @else {
+      <div class="table-wrapper">
+        <div style="overflow-x: auto">
+          <table mat-table [dataSource]="userStore.user()" class="custom-table">
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td style="width: 5px; padding: 0" mat-cell *matCellDef="let element">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  [matMenuTriggerData]="{ user: element }"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu class="minimal-menu" #menu="matMenu">
+                  <ng-template matMenuContent let-user="user">
+                    <button (click)="goToEdit(user)" mat-menu-item>
+                      <mat-icon>edit</mat-icon>
+                      <span>Editar</span>
+                    </button>
+                  </ng-template>
+                </mat-menu>
+              </td>
+            </ng-container>
+            @for (col of displayedColumns.slice(1); track col) {
+              <ng-container [matColumnDef]="col">
+                <th mat-header-cell *matHeaderCellDef class="header-cell-custom">{{ col }}</th>
+                <td mat-cell *matCellDef="let element" class="body-cell-custom">
+                  {{ getCellValue(element, col) }}
+                </td>
+              </ng-container>
+            }
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" class="row-customize"></tr>
+          </table>
+        </div>
+
+        <mat-paginator
+          [length]="userStore.total()"
+          [pageSize]="userStore.pagination()?.limit"
+          [pageSizeOptions]="[1, 5, 20, 30, 50]"
+          (page)="onPageChange($event)"
+          showFirstLastButtons
+          class="paginator-custom"
+        >
+        </mat-paginator>
+      </div>
+    }
+  } @else {
+    <app-user-form [editableUser]="editableUser" [(isFormOpen)]="isFormOpen"></app-user-form>
+  }
+</div>

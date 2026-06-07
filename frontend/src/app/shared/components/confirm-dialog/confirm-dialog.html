@@ -1,0 +1,17 @@
+<div class="modal-card">
+  <div class="modal-body">
+    <div class="modal-header-content">
+      <h2 class="modal-title">{{ data.title }}</h2>
+      <p class="modal-description">{{ data.message }}</p>
+    </div>
+
+    <div class="modal-form">
+      <button (click)="close(true)" class="modal-submit-btn danger-btn">
+        {{ data.confirmText || 'Eliminar' }}
+      </button>
+      <button (click)="close(false)" class="modal-submit-btn">
+        {{ data.cancelText || 'Cancelar' }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+@if (!authService.isInitializing()) {
+  <app-chat-component></app-chat-component>
+} @else {
+  <div class="loader-container">
+    <div class="onion-bounce">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240">
+        <!-- Tallo -->
+        <path d="M110 20 C105 40,100 55,110 75 C120 55,115 40,110 20 Z" fill="#4CAF50" />
+
+        <!-- Hojas -->
+        <path d="M105 75 C75 50,55 30,65 10 C85 30,98 50,105 75 Z" fill="#66BB6A" />
+        <path d="M115 75 C145 50,165 30,155 10 C135 30,122 50,115 75 Z" fill="#66BB6A" />
+
+        <!-- Cuerpo -->
+        <path
+          d="
+          M110 70
+          C170 70, 205 110, 205 155
+          C205 215, 160 235, 110 235
+          C60 235, 15 215, 15 155
+          C15 110, 50 70, 110 70
+          Z"
+          fill="#B455C5"
+        />
+
+        <!-- Capas -->
+        <path
+          d="
+          M110 82
+          C145 82, 170 115, 170 155
+          C170 195, 145 220, 110 228"
+          fill="none"
+          stroke="#DFA3EA"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+
+        <path
+          d="
+          M110 82
+          C75 82, 50 115, 50 155
+          C50 195, 75 220, 110 228"
+          fill="none"
+          stroke="#DFA3EA"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+
+        <path
+          d="
+          M110 78
+          C124 105,130 140,130 190
+          C130 210,124 223,110 230"
+          fill="none"
+          stroke="#EAC4F2"
+          stroke-width="2"
+        />
+
+        <path
+          d="
+          M110 78
+          C96 105,90 140,90 190
+          C90 210,96 223,110 230"
+          fill="none"
+          stroke="#EAC4F2"
+          stroke-width="2"
+        />
+
+        <!-- Raíces -->
+        <path
+          d="
+          M98 232 L88 242
+          M110 235 L110 246
+          M122 232 L132 242"
+          stroke="#A1887F"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+  </div>
+}

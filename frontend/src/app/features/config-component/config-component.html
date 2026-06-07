@@ -1,0 +1,77 @@
+<div style="height: 100%" class="dialog-container">
+  <div class="dialog-header">
+    <button (click)="dialogRef.close()" mat-icon-button type="button" aria-label="Cerrar">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    <section>
+      <h3 style="font-size: 18px; color: black">
+        {{ languageService.translate('LANGUAGE_TITLE') }}
+      </h3>
+      <p style="font-size: 12px; color: black">
+        {{ languageService.translate('LANGUAGE_DESCRIPTION') }}
+      </p>
+      <mat-radio-group [(ngModel)]="configService.translation" (change)="onChangeLanguage($event)">
+        <mat-radio-button value="es">Español</mat-radio-button>
+        <mat-radio-button value="en">English</mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+      <h3 style="font-size: 18px; color: black">
+        {{ languageService.translate('TEXT_TO_SPEECH_TITLE') }}
+      </h3>
+      <p style="font-size: 12px; color: black">{{ languageService.translate('AUTO_MODE') }}</p>
+      <mat-checkbox
+        [(ngModel)]="configService.isTextToSpeechActive"
+        (change)="toggleTTS($event.checked)"
+        >
+        {{languageService.translate('ACTIVE')}}</mat-checkbox
+      >
+
+      <p style="font-size: 12px; color: black">
+        {{ languageService.translate('GENERATE_VOICE_WITH') }}
+      </p>
+      <mat-radio-group [(ngModel)]="voice" (change)="onChangeVoice($event)">
+        <mat-radio-button value="NATIVE">{{
+          languageService.translate('NATIVE_VOICE')
+        }}</mat-radio-button>
+        <mat-radio-button disabled="true" value="GOOGLE">Google</mat-radio-button>
+      </mat-radio-group>
+    </section>
+    <mat-divider></mat-divider>
+
+    @if(authService.isLoggedIn()){
+    <section>
+      <h3 style="font-size: 18px; color: black">{{ languageService.translate('DELETE') }}</h3>
+      <button (click)="onDeleteUserChats('OTHER')" style="height: 30px; margin: 5px" matButton="outlined">
+        {{ languageService.translate('DELETE_ALL_CHATS') }}
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button (click)="onDeleteUserChats('INTERVIEW')" style="height: 30px; margin: 5px" matButton="outlined">
+        {{ languageService.translate('DELETE_INTERVIEWS_ONLY') }}
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button (click)="onDeleteUserChats('CONVERSATION')" style="height: 30px; margin: 5px" matButton="outlined">
+        {{ languageService.translate('DELETE_CHATS_ONLY') }}
+        <mat-icon>delete</mat-icon>
+      </button>
+    </section>
+  }
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button class="btn-cancel" [mat-dialog-close]="false">
+      {{ languageService.translate('CANCEL') }}
+    </button>
+    <button mat-raised-button class="btn-confirm" [mat-dialog-close]="true">
+      {{ languageService.translate('ACCEPT') }}
+    </button>
+  </mat-dialog-actions>
+</div>

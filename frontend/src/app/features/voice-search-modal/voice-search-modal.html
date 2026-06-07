@@ -1,0 +1,55 @@
+<div class="voice-modal">
+  <div>
+    <button class="close-btn" (click)="close()" aria-label="Cerrar">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="header">
+    <h3 class="title">{{ languageService.translate('VOICE_SEARCH_TITLE') }}</h3>
+  </div>
+
+  <div class="mic-container">
+    <button
+      class="mic-button"
+      [class.listening]="speechToText.isRecording()"
+      (click)="toggleListening()"
+      [attr.aria-label]="speechToText.isRecording() ? 
+      languageService.translate('ARIA_STOP_RECORDING') :
+       languageService.translate('ARIA_START_RECORDING')"
+    >
+      <mat-icon style="color: white !important">{{
+        speechToText.isRecording() ? 'mic' : 'mic_none'
+      }}</mat-icon>
+    </button>
+  </div>
+
+  <p class="feedback" [class.active]="speechToText.isRecording()">
+    {{ speechToText.isRecording() ? languageService.translate('VOICE_LISTENING') : languageService.translate('VOICE_TAP_MIC') }}
+  </p>
+
+  <span>{{ speechToText.textResult() }}</span>
+  <div class="actions">
+    @if (!speechToText.isRecording()) {
+      <button class="btn cancel" (click)="close()">
+        {{ languageService.translate('ACCEPT') }}
+      </button>
+    } @else {
+      <button
+        class="btn stop"
+        [class.active]="speechToText.isRecording()"
+        (click)="toggleListening()"
+      >
+        {{ languageService.translate('STOP') }}
+      </button>
+    }
+    <button class="btn accept" style="background-color: black; color: white" (click)="onAccept()">
+      <span
+        class="material-icons"
+        style="font-size: 15px; vertical-align: middle; margin-right: 1px; color: white !important"
+      >
+        arrow_upward
+      </span>
+      {{ languageService.translate('ACCEPT') }}
+    </button>
+  </div>
+</div>

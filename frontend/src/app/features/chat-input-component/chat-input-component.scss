@@ -1,0 +1,258 @@
+// ===============================
+// Variables
+// ===============================
+$accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+$text-main: #1f2937;
+$border-light: rgba(229, 231, 235, 0.5);
+
+// ===============================
+// Wrapper
+// ===============================
+.chat-wrapper {
+  padding: 20px;
+  background: transparent !important;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  
+}
+
+// ===============================
+// Input Container
+// ===============================
+.chat-input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  width: 100%;
+  max-width: 800px;
+
+  background: rgba(255, 255, 255, 0.8);;
+  backdrop-filter: blur(12px);
+
+  border: 1px solid $border-light;
+  border-radius: 28px;
+
+  padding: 10px 14px;
+
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+
+  box-sizing: border-box;
+
+  &:focus-within {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    border-color: rgba(99, 102, 241, 0.3);
+
+    transform: translateY(-2px);
+  }
+}
+
+// ===============================
+// Action Button
+// ===============================
+.action-button {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  border: none;
+
+  color: #9ca3af;
+
+  padding: 8px;
+
+  cursor: pointer;
+
+  border-radius: 50%;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  &:hover {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+  }
+}
+
+// ===============================
+// Textarea
+// ===============================
+.elegant-textarea {
+  flex: 1;
+
+  border: none;
+  background: transparent;
+
+  padding: 10px 4px;
+
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: $text-main;
+
+  resize: none;
+  outline: none;
+
+  overflow-y: auto;
+
+  min-height: 40px;
+  max-height: 200px;
+
+  font-family: 'Inter', system-ui, sans-serif;
+
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #9ca3af;
+    font-weight: 300;
+  }
+}
+
+// ===============================
+// Send Button
+// ===============================
+.send-btn-elegant {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: $accent-gradient;
+
+  color: white;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+
+  &:hover:not(:disabled) {
+    transform: rotate(-10deg) scale(1.08);
+
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  }
+
+  &:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+
+  .icon-wrapper {
+    width: 18px;
+    height: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 2px;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ===============================
+// Scrollbar
+// ===============================
+.elegant-textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.elegant-textarea::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.elegant-textarea {
+  flex: 1;
+
+  padding-left: 12px;
+  padding-right: 12px;
+  scrollbar-width: none;
+}
+
+.elegant-textarea::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+// ===============================
+// Mobile
+// ===============================
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 110px;
+  }
+
+  .chat-wrapper {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 10px;
+
+    z-index: 999;
+
+    background: white;
+
+    box-sizing: border-box;
+  }
+
+  .chat-input-container {
+    width: 100%;
+    max-width: 100%;
+
+    border-radius: 20px;
+
+    padding: 10px 12px;
+  }
+
+  .elegant-textarea {
+    max-height: calc(1.5em * 5);
+    font-size: 16px;
+  }
+
+  .send-btn-elegant {
+    width: 40px;
+    height: 40px;
+  }
+
+  .action-button {
+    padding: 6px;
+  }
+}
+

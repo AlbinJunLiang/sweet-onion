@@ -1,0 +1,20 @@
+<a [matMenuTriggerFor]="chatModelMenu" mat-list-item>
+  <mat-icon matListItemIcon>smart_toy</mat-icon>
+  <span>{{ languageService.translate('MODELS') }}</span>
+</a>
+
+<mat-menu #chatModelMenu="matMenu" class="minimal-menu">
+
+  <div style="padding: 10px 16px; font-weight: bold; color: gray; font-size: 13px">
+    {{ languageService.translate('SELECT_MODEL') }}
+  </div>
+
+  @for (model of modelStore.models(); track model.id) {
+    <button mat-menu-item (click)="selectModel(model)">
+      @if (selectedModel().id === model.id) {
+        <mat-icon>check</mat-icon>
+      }
+      <span>{{ model.model }}</span>
+    </button>
+  }
+</mat-menu>

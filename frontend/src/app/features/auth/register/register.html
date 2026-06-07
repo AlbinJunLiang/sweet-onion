@@ -1,0 +1,136 @@
+<form [formGroup]="form">
+  <mat-dialog-content class="auth-content">
+    @if (!isRegistered()) {
+      <mat-form-field
+        style="font-family: 'Times New Roman', Times, serif"
+        appearance="outline"
+        style="width: 100% !important"
+      >
+        <mat-label style="font-family: 'Times New Roman', Times, serif">{{
+          languageService.translate('EMAIL')
+        }}</mat-label>
+
+        <input
+          formControlName="email"
+          style="font-family: 'Times New Roman', Times, serif"
+          matInput
+          type="email"
+          placeholder="ejemplo@correo.com"
+        />
+
+        @let emailCtrl = form.get('email');
+
+        @if (emailCtrl?.hasError('required')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('EMAIL_REQUIRED')
+          }}</mat-error>
+        }
+
+        @if (emailCtrl?.hasError('email')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('EMAIL_INVALID')
+          }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100% !important">
+        <mat-label>{{ languageService.translate('PASSWORD') }}</mat-label>
+        <input formControlName="password" matInput [type]="hidePassword() ? 'password' : 'text'" />
+
+        <mat-icon (click)="togglePassword($event)" matSuffix style="cursor: pointer">{{
+          hidePassword() ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
+
+        @if (form.get('password')?.hasError('required')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('PASSWORD_REQUIRED')
+          }}</mat-error>
+        }
+
+        <!-- Caso 2: Si tiene datos pero no cumple otra regla (ej. menor a 0 o longitud) -->
+        @if (form.get('password')?.hasError('minlength')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('PASSWORD_LENGTH')
+          }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100% !important">
+        <mat-label>{{ languageService.translate('CONFIRM_PASSWORD') }}</mat-label>
+        <input
+          formControlName="confirmPassword"
+          matInput
+          [type]="hidePasswordConfirm() ? 'password' : 'text'"
+        />
+
+        <mat-icon (click)="togglePasswordConfirm($event)" matSuffix style="cursor: pointer">{{
+          hidePasswordConfirm() ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
+
+        @if (form.get('confirmPassword')?.hasError('required')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('CONFIRM_PASSWORD')
+          }}</mat-error>
+        }
+
+        @if (form.get('confirmPassword')?.hasError('minlength')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('PASSWORD_LENGTH')
+          }}</mat-error>
+        }
+        @if (form.hasError('mustMatch')) {
+          <mat-error style="width: 100%">{{
+            languageService.translate('PASSWORD_DO_NOT_MATCH')
+          }}</mat-error>
+        }
+      </mat-form-field>
+    } @else {
+      <div style="height: 300px">
+        <span
+          >{{ languageService.translate('SENT_CONFIRMATION_MESSAGE') }}
+          <b>{{ authService.user()?.email }}</b></span
+        >
+        <div style="display: flex; text-align: center; align-items: center; padding: 90px 0px">
+          <mat-icon style="font-size: 80px; height: 80px; width: 100%">email</mat-icon>
+        </div>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions" style="padding-top: 0">
+    <div (click)="openForgotPasswordDialog()" class="forgot-password">
+      <span>{{ languageService.translate('FORGOT_PASSWORD') }}</span>
+    </div>
+
+    <button
+      (click)="authModeService.setAuthMode('LOGIN')"
+      class="cancel-btn"
+      style="background-color: rgb(209, 209, 209); color: black"
+      mat-flat-button
+    >
+      {{
+        isRegistered() ? languageService.translate('ACCEPT') : languageService.translate('CANCEL')
+      }}
+    </button>
+
+    @if (!isRegistered()) {
+      <button
+        (click)="onRegister()"
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!form.valid || isLoading()"
+      >
+        @if (isLoading()) {
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px">
+            <span> {{ languageService.translate('LOADING') }} </span>
+            <mat-spinner diameter="20"></mat-spinner>
+          </div>
+        } @else {
+          {{ languageService.translate('REGISTER') }}
+        }
+      </button>
+    }
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,42 @@
+<div>
+  @if (chatStore.isLoading()) {
+    <div class="spinner-container">
+      <mat-spinner class="spinner-indigo" diameter="50"></mat-spinner>
+    </div>
+  } @else {
+    @for (chat of chatStore.chats(); track chat.id) {
+      <a
+        [routerLink]="['/chat', chat.id]"
+        class="chat-item"
+        [class.active-chat]="chatStore.selectedChat()?.id === chat.id"
+        (click)="selectChat(chat)"
+        mat-list-item
+      >
+        <span matListItemTitle>{{ chat.title }}</span>
+
+        <button
+          (click)="onDelete(chat.id, $event)"
+          mat-icon-button
+          matListItemMeta
+          class="delete-btn"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    } @empty {
+      <p style="text-align: center">No tienes chats disponibles.</p>
+    }
+
+    @if (chatStore.hasMore()) {
+      <div
+        appInfiniteScroll
+        (scrolledToEnd)="chatStore.loadNextPage(userId())"
+        class="scroll-sentinel"
+      >
+        @if (chatStore.isLoading()) {
+          <mat-spinner diameter="40"></mat-spinner>
+        }
+      </div>
+    }
+  }
+</div>

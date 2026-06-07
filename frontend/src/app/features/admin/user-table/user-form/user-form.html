@@ -1,0 +1,80 @@
+<form [formGroup]="userForm" class="user-form">
+  <div class="form-grid">
+    <mat-form-field appearance="outline" class="full-width md-span-2">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Ej: Juan Pérez" />
+      <mat-icon matSuffix>abc</mat-icon>
+
+      @if (userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+        <mat-error>
+          @if (userForm.get('name')?.hasError('required')) {
+            El nombre es obligatorio.
+          }
+          @if (userForm.get('name')?.hasError('maxlength')) {
+            Máximo 100 caracteres.
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Rol del usuario</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="user">Usuario</mat-option>
+        <mat-option value="admin">Administrador</mat-option>
+      </mat-select>
+
+      @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
+        <mat-error>El rol es obligatorio</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="registered">Registrado</mat-option>
+        <mat-option value="verified">Verificado</mat-option>
+
+        <mat-option value="inactive">Inactivo</mat-option>
+      </mat-select>
+
+      @if (userForm.get('status')?.invalid && userForm.get('status')?.touched) {
+        <mat-error>El estado es requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width md-span-2">
+      <mat-label>Auth ID</mat-label>
+      <input matInput formControlName="authId" />
+
+      @if (userForm.get('authId')?.invalid && userForm.get('authId')?.touched) {
+        <mat-error>
+          @if (userForm.get('authId')?.hasError('required')) {
+            El auth id es requerido.
+          }
+          @if (userForm.get('authId')?.hasError('maxlength')) {
+            Máximo 100 caracteres.
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="form-actions">
+    <button mat-button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+
+    <button
+      mat-flat-button
+      type="submit"
+      class="btn-save"
+      [disabled]="userForm.invalid || userStore.isLoading()"
+      (click)="updateUser()"
+    >
+      @if (!userStore.isLoading()) {
+        Actualizar
+      } @else {
+        <mat-spinner class="spinner-indigo" diameter="20"></mat-spinner>
+      }
+    </button>
+  </div>
+</form>

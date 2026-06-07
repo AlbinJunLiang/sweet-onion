@@ -1,0 +1,97 @@
+<div class="chat-container">
+  <header class="chat-header">
+    <div class="bot-info">
+      <div class="status-dot"></div>
+      <span>{{ getChatTitle() }}</span>
+    </div>
+  </header>
+
+  <main class="chat-messages" #chatContainer>
+    @if (messageStore.isLoading()) {
+    <div class="spinner-container">
+      <mat-spinner diameter="50" class="spinner-indigo"></mat-spinner>
+    </div>
+  }
+    @for (msg of messages(); track msg.id) {
+      <div
+        class="message-row"
+        [class.user-row]="msg.role === 'user'"
+        [class.bot-row]="msg.role === 'bot'"
+      >
+        @if (msg.role === 'bot') {
+          <div class="avatar">
+            <span class="material-icons">smart_toy</span>
+          </div>
+        }
+
+        <div class="message-content">
+          <div
+            class="bubble markdown-body prose prose-sm max-w-none"
+            [innerHTML]="msg.text | markdown"
+          ></div>
+
+          @if (msg.role === 'bot') {
+            <div class="message-actions">
+              <button (click)="copyText(msg.text)" class="action-btn">
+                <span class="material-icons">content_copy</span>
+              </button>
+              <button (click)="onSpeechControl(msg.text)" class="action-btn">
+                <span class="material-icons">
+                  {{ speechService.isPlaying() ? 'stop' : 'volume_up' }}
+                </span>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div
+        class="message-row bot-row"
+        style="display: flex; justify-content: flex-start; width: 100%"
+      >
+        <div class="avatar" style="margin-right: 8px; display: flex; align-items: center">
+          <span class="material-icons">smart_toy</span>
+        </div>
+
+        <div
+          class="message-content"
+          style="display: flex; flex-direction: column; align-items: flex-start; max-width: 80%"
+        >
+          <div
+            class="bubble"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              padding: 10px 14px;
+              border-radius: 12px;
+              width: max-content;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+              "
+            >
+              <mat-spinner diameter="20" class="spinner-indigo"></mat-spinner>
+            </div>
+
+            <span style="font-size: 0.875rem; color: #6b7280; font-weight: 500; line-height: 1">
+              {{ languageService.translate('THINKING') }}...
+            </span>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+
+  <footer class="chat-footer">
+    <app-chat-input-component (onSendText)="sendPrompt($event)"></app-chat-input-component>
+  </footer>
+</div>

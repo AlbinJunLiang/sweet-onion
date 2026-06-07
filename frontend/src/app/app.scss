@@ -1,0 +1,64 @@
+.loader-container {
+  display: flex;
+  height: 100vh;           /* Ocupa el 100% de la altura de la ventana */
+  width: 100%;             /* Asegura el ancho total */
+  align-items: center;     /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  position: absolute;      /* Opcional: si quieres que flote sobre todo */
+  top: 0;
+  left: 0;
+  background-color: white; /* Fondo blanco para tapar el contenido mientras carga */
+  z-index: 9999;           /* Asegura que quede por encima de todo */
+}
+
+
+
+.loader-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  z-index: 9999;
+}
+
+.onion-bounce {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center bottom;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.onion-bounce svg {
+  width: 100px;
+  height: auto;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 0.95);
+  }
+
+  20% {
+    transform: translateY(-40px) scale(0.95, 1.05);
+  }
+
+  40% {
+    transform: translateY(0) scale(1.1, 0.85);
+  }
+
+  55% {
+    transform: translateY(-20px) scale(0.98, 1.02);
+  }
+
+  70% {
+    transform: translateY(0) scale(1.05, 0.9);
+  }
+
+  85% {
+    transform: translateY(-8px) scale(1, 1);
+  }
+}

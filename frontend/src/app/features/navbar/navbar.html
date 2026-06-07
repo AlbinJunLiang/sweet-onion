@@ -1,0 +1,107 @@
+<mat-drawer-container class="container" autosize>
+  <mat-drawer
+    #drawer
+    [mode]="drawerService.drawerMode()"
+    [opened]="!drawerService.isMobile()"
+    [class.mini-sidebar]="!drawerService.isExpanded() && !drawerService.isMobile()"
+    class="sidenav"
+  >
+    <mat-nav-list>
+      @if (!drawerService.isMobile()) {
+        <div class="menu-header">
+          @if (drawerService.isExpanded()) {
+            <button disabled mat-icon-button>
+              <img src="robot.svg" width="22" height="22" />
+            </button>
+          }
+
+          <button
+            [class.sidenav-burger]="drawerService.isExpanded()"
+            mat-icon-button
+            (click)="drawerService.toggleMenu()"
+          >
+            <mat-icon>{{ drawerService.isExpanded() ? 'menu_open' : 'menu' }}</mat-icon>
+          </button>
+        </div>
+      } @else {
+        <div class="menu-header">
+          <button mat-icon-button>
+            <img src="robot.svg" width="22" height="22" />
+          </button>
+
+          <button
+            [class.sidenav-burger]="drawerService.isMobile()"
+            mat-icon-button
+            (click)="drawer.close()"
+          >
+            <mat-icon>menu_open</mat-icon>
+          </button>
+        </div>
+      }
+
+      <a (click)="onNewChat(); drawerService.isMobile() ? drawer.close() : null" mat-list-item>
+        <mat-icon matListItemIcon>add</mat-icon>
+        <span>{{ languageService.translate('NEW_CHAT') }}</span>
+      </a>
+
+      <app-model-menu></app-model-menu>
+
+      <a
+        mat-list-item
+        (click)="openConfigDialog(); drawerService.isMobile() ? drawer.close() : null"
+      >
+        <mat-icon matListItemIcon>settings</mat-icon>
+        @if (drawerService.isExpanded() || drawerService.isMobile()) {
+          <span>{{ languageService.translate('SETTINGS') }}</span>
+        }
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/information"
+        (click)="drawerService.isMobile() ? drawer.close() : null"
+      >
+        <mat-icon matListItemIcon>info</mat-icon>
+        @if (drawerService.isExpanded() || drawerService.isMobile()) {
+          <span>{{ languageService.translate('INFORMATION') }}</span>
+        }
+      </a>
+
+      @if (authUserStore.userSyncData()?.user?.role === 'admin') {
+        <app-admin-menu></app-admin-menu>
+      }
+
+      @if (authService.isLoggedIn()) {
+        @if (drawerService.isExpanded()) {
+          <div class="title">
+            <span>{{ languageService.translate('CONVERSATIONS') }}</span>
+            <app-chat-filter-menu></app-chat-filter-menu>
+          </div>
+
+          <app-conversation-list></app-conversation-list>
+        }
+
+        <div class="custom-divider"></div>
+        <a (click)="onLogout()" mat-list-item class="logout-item">
+          <mat-icon matListItemIcon>logout</mat-icon>
+
+          @if (drawerService.isExpanded() || drawerService.isMobile()) {
+            <span style="font-size: 15px; font-weight: 600">{{
+              languageService.translate('LOGOUT')
+            }}</span>
+          }
+        </a>
+      }
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-sidenav-content style="margin-left: 15px">
+    <div>
+      <app-toolbar></app-toolbar>
+    </div>
+
+    <main style="height: 100% !important">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-drawer-container>

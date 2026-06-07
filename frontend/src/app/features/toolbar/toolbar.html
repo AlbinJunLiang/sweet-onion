@@ -1,0 +1,87 @@
+<mat-toolbar style="padding-left: 0px; background-color: white" color="primary">
+  @if (drawerService.isMobile()) {
+    <button mat-icon-button (click)="drawerService.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
+  <div class="logo-container">
+    <img src="logo.png" alt="BinAI" class="logo-app" />
+    <span class="app-name">SweetOnion</span>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div style="margin-left: auto">
+    @if (!authService.isLoggedIn()) {
+      <button
+        (click)="openLogin()"
+        type="button"
+        matIconButton
+        aria-label="Example icon-button with share icon"
+      >
+        <mat-icon>login</mat-icon>
+      </button>
+    } @else {
+      <button
+        [matMenuTriggerFor]="menu"
+        type="button"
+        matIconButton
+        aria-label="Example icon-button with share icon"
+      >
+        <mat-icon>person</mat-icon>
+      </button>
+    }
+
+    <button
+      [matMenuTriggerFor]="languageMenu"
+      matIconButton
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>language</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" class="minimal-menu">
+      <div class="menu-title">{{authService.user()?.email ?? 'user'}}</div>
+
+      <ng-template matMenuContent>
+        <button (click)="openForgotPasswordDialog()" mat-menu-item>
+          <mat-icon color="warn">edit</mat-icon>
+          <span>{{ languageService.translate('UPDATE_PASSWORD') }}</span>
+        </button>
+        @if (authService.user()?.emailVerified === false) {
+          <button (click)="openVerificationDialog()" mat-menu-item>
+            <mat-icon color="warn">email</mat-icon>
+            <span>{{ languageService.translate('VERIFY_USER') }}</span>
+          </button>
+        }
+        <button (click)="onLogout()" mat-menu-item>
+          <mat-icon color="warn">logout</mat-icon>
+          <span>{{ languageService.translate('LOGOUT') }}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+    <mat-menu #languageMenu="matMenu" class="minimal-menu">
+      <button mat-menu-item (click)="languageService.changeLang('es')">
+        @if (languageService.currentLang() === 'es') {
+          <mat-icon>check</mat-icon>
+        } @else {
+          <mat-icon></mat-icon>
+        }
+
+        <span>Español</span>
+      </button>
+
+      <button mat-menu-item (click)="languageService.changeLang('en')">
+        @if (languageService.currentLang() === 'en') {
+          <mat-icon>check</mat-icon>
+        } @else {
+          <mat-icon></mat-icon>
+        }
+
+        <span>English</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

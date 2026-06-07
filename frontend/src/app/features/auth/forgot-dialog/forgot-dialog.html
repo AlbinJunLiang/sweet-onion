@@ -1,0 +1,69 @@
+@let emailCtrl = form.get('email');
+
+<div class="modal-overlay">
+  <div class="modal-card">
+    <button (click)="close()" class="modal-close-btn">&times;</button>
+
+    <div class="modal-body">
+      @if (step() === 'initial') {
+        <div class="modal-header-content">
+          <div class="modal-icon-wrapper">
+            <mat-icon class="modal-icon">mail</mat-icon>
+          </div>
+          <h2 class="modal-title">{{ languageService.translate('RECOVER_ACCOUNT') }}</h2>
+          <p class="modal-description">{{ languageService.translate('ENTER_EMAIL') }}</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="sendForgotPassword()" class="modal-form">
+          <mat-form-field appearance="outline" class="full-width-field">
+            <mat-label>{{ languageService.translate('EMAIL') }}</mat-label>
+            <input formControlName="email" matInput type="email" placeholder="ejemplo@correo.com" />
+
+            @if (emailCtrl?.hasError('required')) {
+              <mat-error>{{ languageService.translate('EMAIL_REQUIRED') }}</mat-error>
+            }
+
+            @if (emailCtrl?.hasError('email')) {
+              <mat-error>{{ languageService.translate('EMAIL_INVALID') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <button [disabled]="!form.valid || isLoading()" type="submit" class="modal-submit-btn">
+            @if (isLoading()) {
+              <div style="display: flex; align-items: center; justify-content: center; gap: 8px">
+                <span>{{ languageService.translate('SENDING') }}</span>
+                <mat-spinner diameter="20"></mat-spinner>
+              </div>
+            } @else {
+              {{ languageService.translate('SEND_LINK') }}
+            }
+          </button>
+        </form>
+      } @else {
+        <div class="modal-header-content">
+          <div class="modal-icon-wrapper modal-icon-wrapper--success">
+            <mat-icon class="modal-icon">mark_email_read</mat-icon>
+          </div>
+          <h2 class="modal-title">{{ languageService.translate('RECOVERY_EMAIL_SENT') }}</h2>
+          <p class="modal-description">
+            {{ languageService.translate('CHECK_INBOX') }}
+          </p>
+        </div>
+
+        <div class="modal-success-countdown-area">
+          <div class="divider-countdown">
+            <span> {{ languageService.translate('CAN_REQUEST_ANOTHER') }} </span>
+          </div>
+
+          <div class="modal-countdown-box">
+            <span class="modal-countdown-timer">
+              {{ countdown() }}
+            </span>
+          </div>
+
+          <button mat-dialog-close class="modal-submit-btn">{{languageService.translate('UNDERSTOOD')}}</button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

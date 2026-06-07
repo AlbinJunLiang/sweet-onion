@@ -1,0 +1,68 @@
+// Variables
+$color-text-main: #1f2937;
+$color-text-muted: #70757a;
+$color-border-gray: #dadce0;
+$color-bg-hover: #f3f4f6;
+
+// Esta clase es la que envuelve todo tu HTML del componente
+.modal-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.modal-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: $color-text-main;
+  margin: 0 0 10px 0;
+}
+.modal-description {
+  font-size: 14px;
+  color: $color-text-muted;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-submit-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid $color-border-gray;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $color-bg-hover;
+  }
+
+  &.danger-btn {
+    border-color: #d93025;
+    color: #d93025;
+    &:hover {
+      background-color: #fce8e6;
+    }
+  }
+}

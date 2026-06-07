@@ -1,0 +1,83 @@
+
+
+.container-chips-responsive {
+  display: flex !important;
+  justify-content: center !important; /* Centrado horizontal absoluto */
+  align-items: center !important; /* Centrado vertical */
+  width: 100% !important;
+  padding: 10px 0 !important; /* <--- Subimos de 16px a 32px para dar aire arriba y abajo */
+  box-sizing: border-box;
+}
+
+/* Evita que parpadee un recuadro al hacer clic */
+:host ::ng-deep mat-chip-option .mdc-chip__focusable-area,
+:host ::ng-deep mat-chip-option .mdc-chip__container,
+:host ::ng-deep mat-chip-option .mdc-chip__background {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Hover (Pasar el mouse por encima) */
+mat-chip-option:hover {
+  --mdc-chip-label-text-color: #334155;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+  
+}
+
+/* ==========================================================================
+   4. ESTADO SELECCIONADO (ACTIVO)
+   ========================================================================== */
+:host ::ng-deep mat-chip-option[aria-selected='true'] {
+  --mdc-chip-elevated-container-color: #0284c7 !important; /* Azul moderno */
+  --mdc-chip-label-text-color: #ffffff !important; /* Texto blanco */
+  border: none !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   5. ICONOS DENTRO DEL CHIP
+   ========================================================================== */
+:host ::ng-deep mat-chip-option mat-icon {
+  color: #94a3b8 !important; /* Gris suave por defecto */
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  transition: color 0.2s ease;
+}
+
+/* Icono cambia a blanco si el chip está seleccionado */
+:host ::ng-deep mat-chip-option[aria-selected='true'] mat-icon {
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   6. COMPORTAMIENTO MÓVIL RESPONSIVE (PANTALLAS < 600PX)
+   ========================================================================== */
+@media (max-width: 600px) {
+
+  mat-chip-listbox {
+    width: 100% !important;
+  }
+
+  /* Forzamos el apilado vertical rompiendo la fila */
+  :host ::ng-deep .mdc-chip-set,
+  :host ::ng-deep .mat-mdc-chip-set,
+  :host ::ng-deep .cdk-drop-list,
+  :host ::ng-deep .mdc-chip-set__list {
+    flex-direction: column !important; /* Se apilan verticalmente */
+    justify-content: center !important;
+    align-items: center !important; /* Centrado simétrico de lado a lado */
+    width: 100% !important;
+    gap: 16px !important;              /* <--- Subimos de 10px a 16px para separar los chips apilados */
+    padding: 0 !important; /* Destruye el padding asimétrico de Material */
+    margin: 0 !important;
+  }
+
+  /* Los chips se adaptan al tamaño del celular de forma idéntica */
+  :host ::ng-deep mat-chip-option {
+    width: 85% !important; /* Ancho consistente para pantallas táctiles */
+    margin: 0 auto !important; /* Doble seguro de centrado */
+    display: inline-flex !important;
+    justify-content: center !important; /* Centra el texto e icono por dentro */
+  }
+}
