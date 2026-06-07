@@ -1,34 +1,27 @@
 import express from "express";
+import cors from "cors";
+
 import userRoutes from "./routes/user.routes.js";
 import completionRoutes from "./routes/completion.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
 import modelRoutes from "./routes/model.routes.js";
 
-import cors from "cors";
-
-
-
-
 const app = express();
 
 app.use(express.json());
 
-// CORS configurado correctamente para cookies
-
-app.use(cors({
-    origin: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-
-}));
-
+app.use(
+    cors({
+        origin: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+    })
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/completions", completionRoutes);
 app.use("/api/chats", chatRoutes);
 app.use("/api/models", modelRoutes);
-
-
 
 if (process.env.NODE_ENV === "development") {
     const swaggerUi = await import("swagger-ui-express");
@@ -40,6 +33,5 @@ if (process.env.NODE_ENV === "development") {
         swaggerUi.default.setup(swaggerSpec.default)
     );
 }
-
 
 export default app;
