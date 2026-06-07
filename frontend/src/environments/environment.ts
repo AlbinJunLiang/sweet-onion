@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     mockeable: true,
-    apiUrl: 'http://localhost:3000/api',
+    apiUrl: 'https://sweet-onion-6o85fm7v8-albins-projects-8bf66c7a.vercel.app/api',
     firebaseConfig: {
         apiKey: "AIzaSyDFkEe0_KkIdSaaOCChEfVmy51SKCqNzzk",
         authDomain: "cebolla-dulce.firebaseapp.com",

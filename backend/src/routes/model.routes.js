@@ -11,6 +11,7 @@ import { validateRequest } from "../middlewares/bad-request-middleware.js";
 import verifyToken from "../middlewares/firebase-auth-middleware.js";
 import { allowOnlyEmails } from "../middlewares/email-verified-middleware.js";
 import { paginationValidationRules } from "../validators/pagination--validator.js";
+import { rateLimitWithExclusions } from "../middlewares/rate-limit-middleware.js";
 
 const router = Router();
 
@@ -44,7 +45,7 @@ const router = Router();
  *       200:
  *         description: Models retrieved successfully
  */
-router.get("/",paginationValidationRules, validateRequest, verifyToken, allowOnlyEmails, getModels);
+router.get("/", rateLimitWithExclusions(10, 1000), paginationValidationRules, validateRequest, getModels);
 
 /**
  * @swagger
