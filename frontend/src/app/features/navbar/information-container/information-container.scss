@@ -1,18 +1,10 @@
 .container {
+  height: 100%;
   overflow-y: auto;
-  height: 90vh;
-  margin: 0 auto;
-
-  /* 1. Ajuste de márgenes laterales: 
-     20px de aire a los lados es suficiente para que no se vea pegado */
-  padding: 5px 20px 20px 20px;
-
-  /* 2. Limita el ancho para que el texto no sea una línea infinita en pantallas grandes */
-
-  line-height: 1.6;
-  box-sizing: border-box; /* Fundamental: asegura que el padding no rompa el diseño */
+  -webkit-overflow-scrolling: touch;
+  padding: 5px 20px 80px;
+  box-sizing: border-box;
 }
-
 /* Opcional: Centrar los títulos si prefieres un diseño tipo lectura */
 h2,
 h3 {
