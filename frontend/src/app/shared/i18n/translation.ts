@@ -126,7 +126,8 @@ export const translations = {
     DATA_TITLE: 'Acerca de los datos',
     DATA_DESCRIPTION:
       'Los datos almacenados por la aplicación se limitan a la información de la cuenta del usuario, los chats y los mensajes. Esta información no se utiliza para fines distintos al funcionamiento del servicio. Además, el usuario puede eliminar sus conversaciones cuando lo desee.',
-    ADMIN: 'Administrador'
+    ADMIN: 'Administrador',
+    NO_CHATS_AVAIBLES: "No tienes chats disponibles"
   },
 
   en: {
@@ -259,7 +260,9 @@ export const translations = {
 
     DATA_DESCRIPTION:
       'The data stored by the application is limited to user account information, chats, and messages. This information is used solely for operating the service. Additionally, users can delete their conversations at any time.',
-    ADMIN: 'Admin'
+    ADMIN: 'Admin',
+    NO_CHATS_AVAIBLES: "No available chats"
+
 
   }
 } as const;

@@ -31,7 +31,7 @@
   <div class="actions">
     @if (!speechToText.isRecording()) {
       <button class="btn cancel" (click)="close()">
-        {{ languageService.translate('ACCEPT') }}
+        {{ languageService.translate('CANCEL') }}
       </button>
     } @else {
       <button

@@ -35,7 +35,7 @@ export class ConversationList {
 
 
   private dialog = inject(MatDialog);
-  private languageService = inject(LanguageService);
+  protected languageService = inject(LanguageService);
   private router = inject(Router);
 
 

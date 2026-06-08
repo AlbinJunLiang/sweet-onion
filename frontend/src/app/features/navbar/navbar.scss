@@ -1,8 +1,12 @@
 .container {
-  overflow: hidden; /* Evita que el container padre genere scroll */
-  height: 100vh;
+  overflow: hidden;
+  height: 100vh;      /* Fallback para navegadores antiguos */
+  height: 100dvh;     /* El estándar moderno para móviles */
   background-color: white !important;
+  width: 100%;
+  box-sizing: border-box; /* Fundamental para que los paddings no sumen altura */
 }
+
 
 .sidenav {
   width: 250px;

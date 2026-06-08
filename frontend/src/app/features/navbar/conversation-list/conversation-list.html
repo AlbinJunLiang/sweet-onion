@@ -24,7 +24,8 @@
         </button>
       </a>
     } @empty {
-      <p style="text-align: center">No tienes chats disponibles.</p>
+      <p style="text-align: center">
+        {{languageService.translate('NO_CHATS_AVAIBLES')}}.</p>
     }
 
     @if (chatStore.hasMore()) {

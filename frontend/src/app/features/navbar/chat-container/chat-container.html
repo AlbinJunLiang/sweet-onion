@@ -19,28 +19,22 @@
     ></app-chat-input-component>
 
     @if (authService.isLoggedIn() && authService.user()?.emailVerified) {
-      <div hidden="false" class="container-chips-responsive">
+      <div class="container-chips-responsive">
         <mat-chip-listbox
-          cdkDropList
-          cdkDropListOrientation="horizontal"
+          [value]="chatMode()"
           (change)="onModeChange($event.value)"
         >
-          <mat-chip-option
-            style="margin-bottom: 15px !important"
-            cdkDrag
-            [selected]="true"
-            value="EPHEMERAL"
-          >
-            <mat-icon matChipAvatar>auto_delete</mat-icon>
+          <mat-chip-option style="margin-bottom: 15px !important;"  value="EPHEMERAL">
+            <mat-icon  matChipAvatar>auto_delete</mat-icon>
             {{ languageService.translate('EPHEMERAL') }}
           </mat-chip-option>
 
-          <mat-chip-option style="margin-bottom: 15px !important" cdkDrag value="INTERVIEW">
+          <mat-chip-option style="margin-bottom: 15px !important"  value="INTERVIEW">
             <mat-icon matChipAvatar>list_alt_add</mat-icon>
             {{ languageService.translate('INTERVIEWS') }}
           </mat-chip-option>
 
-          <mat-chip-option style="margin-bottom: 15px !important" cdkDrag value="CONVERSATION">
+          <mat-chip-option  style="margin-bottom: 15px !important"  value="CONVERSATION">
             <mat-icon matChipAvatar>save</mat-icon>
             {{ languageService.translate('PERSISTENT_CHAT') }}
           </mat-chip-option>

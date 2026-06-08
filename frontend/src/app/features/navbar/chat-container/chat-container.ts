@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatChipOption, MatChipListbox, MatChipAvatar } from "@angular/material/chips";
-import { CdkDropList } from "@angular/cdk/drag-drop";
 import { MatIcon } from "@angular/material/icon";
 import { ChatInputComponent } from "../../chat-input-component/chat-input-component";
 import { LanguageService } from '../../../core/services/ui/language-service';
@@ -22,7 +21,7 @@ import { ModelService } from '../../../core/services/api/model-service';
 
 @Component({
   selector: 'app-chat-container',
-  imports: [MatChipOption, CdkDropList,
+  imports: [MatChipOption,
     MatChipListbox, MatIcon, MatChipAvatar,
     ChatInputComponent, Conversation],
   templateUrl: './chat-container.html',
@@ -36,7 +35,8 @@ export class ChatContainer {
   protected speed = signal(10);
   protected index = signal(0);
   protected languageService = inject(LanguageService);
-  private chatModeService = inject(ChatModeService);
+  protected chatModeService = inject(ChatModeService);
+  protected chatMode = this.chatModeService.currentMode;
   protected chatViewService = inject(ChatViewService);
   private modelService = inject(ModelService);
 
@@ -135,10 +135,11 @@ export class ChatContainer {
    * 
    * @param mode 
    */
-  protected onModeChange(mode: ChatMode): void {
-    this.chatModeService.setMode(mode);
+  protected onModeChange(mode: ChatMode | null): void {
+    // Forzamos la actualización inmediata
+    const newMode = mode || 'EPHEMERAL';
+    this.chatModeService.setMode(newMode);
   }
-
   /**
    * Para consultar el chat desde la API y seleccionarlo para 
    * mostrar en el componente chat.
